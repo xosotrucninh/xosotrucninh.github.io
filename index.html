@@ -1076,7 +1076,7 @@
 (function() {
     // ==================== CẤU HÌNH SUPABASE ====================
     const SUPABASE_URL = "https://dwddrlgrkuedruxhjeil.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImR3ZGRybGdya3VlZHJ1eGhqZWlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4MzIxODYsImV4cCI6MjEwMzQwODE4Nn0.hF8jqpcGGg4OUPCsGlXiRArguuzI1DoSXJVcbwvdJEE";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3ZGRybGdya3VlZHJ1eGhqZWlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4MzIxODYsImV4cCI6MjEwMzQwODE4Nn0.hF8jqpcGGg4OUPCsGlXiRArguuzI1DoSXJVcbwvdJEE";
     // Mật khẩu đã mã hóa Hash SHA-256 (Tương đương "Zeng1986")
     const CONFIG_PASS_HASH = "d20e2ef5b4ed638663806f1d07c0ea910bf23d7be271295b9c0250df9c8b7468";
     const CONFIG_PASS_ENC = "WmVuZzE5ODY=";
@@ -1386,7 +1386,11 @@
                     }
                 });
 
-                if (!res.ok) throw new Error("Lỗi kết nối Supabase: " + res.statusText);
+                if (!res.ok) {
+                    const errBody = await res.text().catch(() => '');
+                    console.error("Supabase Error:", res.status, errBody);
+                    throw new Error(`Lỗi kết nối Supabase (HTTP ${res.status}): ${errBody || res.statusText || 'Không thể truy cập API'}`);
+                }
                 const data = await res.json();
                 
                 if (data && data.length > 0) {
