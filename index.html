@@ -1840,7 +1840,9 @@
         const regVal = DOM.regionSelect.value, rules = regVal !== 'all' ? regionDefinitions[regVal] : null;
         const { groups, totals } = processSummaryData(rules);
 
-        let htmlHead = `<thead><tr><th>STT</th><th>ĐL</th><th>LTô</th><th>LCặp</th><th>Lô 3/23</th><th>Lô 2/27</th><th>XSKT</th><th>Dsố</th><th>Thưởng</th><th>Tiền nộp</th></tr></thead>`;
+        const hasXSKT = totals.xskt > 0;
+
+        let htmlHead = `<thead><tr><th>STT</th><th>ĐL</th><th>LTô</th><th>LCặp</th><th>Lô 3/23</th><th>Lô 2/27</th>${hasXSKT ? '<th>XSKT</th>' : ''}<th>Dsố</th><th>Thưởng</th><th>Tiền nộp</th></tr></thead>`;
         let htmlBody = `<tbody>`;
 
         let sortedGroups = [...groups.entries()];
@@ -1870,7 +1872,7 @@
                     <td>${formatNumberHiddenK(d.lotoCap)}</td>
                     <td>${formatNumberHiddenK(d.c323)}</td>
                     <td>${formatNumberHiddenK(d.c227)}</td>
-                    <td>${formatNumberHiddenK(d.xskt)}</td>
+                    ${hasXSKT ? `<td>${formatNumberHiddenK(d.xskt)}</td>` : ''}
                     <td>${formatNumberHiddenK(d.totRev)}</td>
                     <td>${formatNumberHiddenK(d.thuong)}</td>
                     <td>${final<0?`<span class="negative-value">`:''}${formatNumberHiddenK(final)}${final<0?'</span>':''}</td>
@@ -1884,7 +1886,7 @@
                     <td>${formatNumberHiddenK(g.gc)}</td>
                     <td>${formatNumberHiddenK(g.gc3)}</td>
                     <td>${formatNumberHiddenK(g.gc2)}</td>
-                    <td>${formatNumberHiddenK(g.gx)}</td>
+                    ${hasXSKT ? `<td>${formatNumberHiddenK(g.gx)}</td>` : ''}
                     <td>${formatNumberHiddenK(g.gr)}</td>
                     <td>${formatNumberHiddenK(g.gth)}</td>
                     <td style="color:#c0392b;">${formatNumberHiddenK(g.gt)}</td>
@@ -1901,7 +1903,7 @@
             <td style="background-color: #5d4037 !important; color: #ffffff !important;">${formatNumberHiddenK(totals.lotoCap)}</td>
             <td style="background-color: #5d4037 !important; color: #ffffff !important;">${formatNumberHiddenK(totals.c323)}</td>
             <td style="background-color: #5d4037 !important; color: #ffffff !important;">${formatNumberHiddenK(totals.c227)}</td>
-            <td style="background-color: #5d4037 !important; color: #ffffff !important;">${formatNumberHiddenK(totals.xskt)}</td>
+            ${hasXSKT ? `<td style="background-color: #5d4037 !important; color: #ffffff !important;">${formatNumberHiddenK(totals.xskt)}</td>` : ''}
             <td style="background-color: #5d4037 !important; color: #ffffff !important;">${formatNumberHiddenK(totals.rev)}</td>
             <td style="background-color: #5d4037 !important; color: #ffffff !important;">${formatNumberHiddenK(totals.th)}</td>
             <td class="${totals.final>=0?'final-amount-positive':'final-amount-negative'}" style="color: #ffffff !important;">${formatNumberHiddenK(totals.final)}</td>
