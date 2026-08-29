@@ -1074,7 +1074,7 @@
 <script>
 'use strict';
 (function() {
-    // ==================== CẤU HÌNH SUPABASE ====================
+   // ==================== CẤU HÌNH SUPABASE ====================
     const SUPABASE_URL = "https://dwddrlgrkuedruxhjeil.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3ZGRybGdya3VlZHJ1eGhqZWlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4MzIxODYsImV4cCI6MjEwMzQwODE4Nn0.hF8jqpcGGg4OUPCsGlXiRArguuzI1DoSXJVcbwvdJEE";
     // Mật khẩu đã mã hóa Hash SHA-256 (Tương đương "Zeng1986")
@@ -1586,7 +1586,7 @@
         showNotification(`Đã nạp ${files.length} file Biểu 35! (${excelData2.length} bản ghi)`, 'success');
     });
 
-            async function executeDirectWebUpload() {
+        async function executeDirectWebUpload() {
         if (!excelData1.length && !excelData2.length) return showNotification("Hãy chọn file Excel Biểu 31 hoặc Biểu 35 trước!", 'error');
         
         showLoading();
